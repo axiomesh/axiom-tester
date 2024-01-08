@@ -379,7 +379,7 @@ describe('TestCases for gas price manager', () => {
             let gasExtraArgs = {
                 MaxGasPrice: 10000000000000,
                 MinGasPrice: 1000000000000,
-                InitGasPrice: 5000000000000,
+                InitGasPrice: 1500000000000,
                 GasChangeRateValue: 1000
             }
             let gasArgs = stringToUint8Array(JSON.stringify(gasExtraArgs))

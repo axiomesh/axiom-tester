@@ -7,7 +7,8 @@
     "build": "tsc && cp -r src/contracts lib/",
     "format": "prettier --write '**/*.ts' '**/*.js'",
     "test": "jest",
-    "smoke-test": "jest --testPathPattern src/tests/evm_tests && jest --testPathPattern src/tests/gas_tests && jest --testPathPattern src/tests/consensus_tests -w 1 && jest --testPathPattern src/tests/websocket_tests -w 1 && jest --testPathPattern src/tests/governance_tests -w 1 && jest --testPathPattern src/tests/jsonrpc_axiomjs_tests",
+    "smoke-test": "jest --testPathPattern src/tests/evm_tests && jest --testPathPattern src/tests/gas_tests && jest --testPathPattern src/tests/governance_tests -w 1 && jest --testPathPattern src/tests/consensus_tests -w 1 && jest --testPathPattern src/tests/websocket_tests -w 1 && jest --testPathPattern src/tests/jsonrpc_axiomjs_tests",
+    "compatible-test": "jest --testPathPattern src/tests/quick_start_tests -w 1 && jest --testPathPattern src/tests/jsonrpc_axiomjs_tests/transaction_api.test.ts && jest --testPathPattern src/tests/jsonrpc_axiomjs_tests/history_api.test.ts",
     "lint": "eslint src/**/*.ts"
   },
   "keywords": [],

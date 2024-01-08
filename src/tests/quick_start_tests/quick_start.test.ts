@@ -39,28 +39,41 @@ describe('test_connect_axiom', () => {
     })
 
     test('deploy and invoke ERC20 contract', async () => {
-        const wallet = new ethers.Wallet(ST_ACCOUNT_2.privateKey, provider)
-        const bytecode = fs.readFileSync(
-            ST_CONTRACT_DIR + 'ERC20/ERC20.bin',
-            'utf8'
-        )
-        const abi = fs.readFileSync(ST_CONTRACT_DIR + 'ERC20/ERC20.abi', 'utf8')
+        for (let i = 0; i < 2; i++) {
+            const wallet = new ethers.Wallet(ST_ACCOUNT_2.privateKey, provider)
+            const bytecode = fs.readFileSync(
+                ST_CONTRACT_DIR + 'ERC20/ERC20.bin',
+                'utf8'
+            )
+            const abi = fs.readFileSync(
+                ST_CONTRACT_DIR + 'ERC20/ERC20.abi',
+                'utf8'
+            )
 
-        const erc20_instance = new ethers.ContractFactory(abi, bytecode, wallet)
-        console.log(`Attempting to deploy from account: ${wallet.address}`)
-        const contract = await erc20_instance.deploy()
-        const txReceipt = await contract.deploymentTransaction()?.wait()
-        const contractAddress = String(txReceipt?.contractAddress)
-        console.log(
-            'deploy erc20 contract successful with address :',
-            contractAddress
-        )
+            const erc20_instance = new ethers.ContractFactory(
+                abi,
+                bytecode,
+                wallet
+            )
+            console.log(`Attempting to deploy from account: ${wallet.address}`)
+            const contract = await erc20_instance.deploy()
+            const txReceipt = await contract.deploymentTransaction()?.wait()
+            const contractAddress = String(txReceipt?.contractAddress)
+            console.log(
+                'deploy erc20 contract successful with address :',
+                contractAddress
+            )
 
-        const erc20_contract = new ethers.Contract(contractAddress, abi, wallet)
-        console.log('Mint 1000000000 TAXM at :', ST_ACCOUNT_2.address)
-        const createReceipt = await erc20_contract.mint(1000000000000)
-        await createReceipt.wait()
-        console.log('Tx successful with hash:', createReceipt.hash)
+            const erc20_contract = new ethers.Contract(
+                contractAddress,
+                abi,
+                wallet
+            )
+            console.log('Mint 1000000000 TAXM at :', ST_ACCOUNT_2.address)
+            const createReceipt = await erc20_contract.mint(1000000000000)
+            await createReceipt.wait()
+            console.log('Tx successful with hash:', createReceipt.hash)
+        }
     })
 
     test('deploy and invoke ERC721 contract', async () => {
